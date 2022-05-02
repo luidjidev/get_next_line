@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:50:02 by luisfern          #+#    #+#             */
-/*   Updated: 2022/04/27 13:50:40 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:50:18 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,35 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	s3[i] = 0;
 	return (s3);
+}
+
+int	ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != (char)c && s[i] != '\0')
+		i++;
+	if (s[i] == (char)c)
+		return (i);
+	return (0);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	count;
+	size_t	i;
+
+	i = 0;
+	count = ft_strlen(src);
+	if (dstsize != 0)
+	{
+		while (src[i] != '\0' && i < (dstsize - 1))
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (count);
 }

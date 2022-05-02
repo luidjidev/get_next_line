@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:40:56 by luisfern          #+#    #+#             */
-/*   Updated: 2022/04/27 14:36:06 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:38:16 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 int	main(void)
 {
 	int		fd;
-	int		ret;
 
 	fd = open("42.txt", O_RDONLY);
 	if (fd == -1)

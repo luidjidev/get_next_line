@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:13:50 by luisfern          #+#    #+#             */
-/*   Updated: 2022/04/27 14:37:01 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:38:57 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
+//#  define BUFFER_SIZE 1000
 # endif
 
 char	*get_next_line(int fd);
+size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif
