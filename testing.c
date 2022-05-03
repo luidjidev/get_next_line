@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:40:56 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/02 17:38:16 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/03 12:45:09 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 int	main(void)
 {
 	int		fd;
+	char	*line;
 
 	fd = open("42.txt", O_RDONLY);
 	if (fd == -1)
@@ -27,7 +28,8 @@ int	main(void)
 		printf("open () error\n");
 		return (0);
 	}
-	printf("%s", get_next_line(fd));
+	line = get_next_line(fd);
+	printf("%s", line);
 	if (close(fd) == -1)
 	{
 		printf("close() error\n");
