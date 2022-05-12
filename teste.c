@@ -1,16 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   teste.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/27 13:12:02 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/12 13:00:39 by luisfern         ###   ########.fr       */
+/*   Created: 2022/05/12 13:05:08 by luisfern          #+#    #+#             */
+/*   Updated: 2022/05/12 13:33:33 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <stdio.h>
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (str[i] != '\0')
+	{
+		count++;
+		i++;
+	}
+	return (count);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	int		i;
+	char	*s3;
+
+	if (!s1)
+	{
+		s1 = malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	s3 = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!s3)
+		return (NULL);
+	while (*s1)
+		s3[i++] = *s1++;
+	while (*s2)
+		s3[i++] = *s2++;
+	s3[i] = 0;
+	free(s1);
+	return (s3);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != (char)c && s[i] != '\0')
+		i++;
+	if (s[i] == (char)c)
+		return ((char *)(s + i));
+	return (NULL);
+}
 
 static char	*fix_stash(char *stash)
 {
@@ -66,15 +126,13 @@ static char	*get_line(char *stash)
 	return (line);
 }
 
-char	*save_read(int fd, char *stash)
+char	*save_read(int fd, char *stash, int bytes_read)
 {
-	int		bytes_read;
 	char	*buff;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
-	bytes_read = 1;
 	while (!ft_strchr(stash, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
@@ -83,6 +141,12 @@ char	*save_read(int fd, char *stash)
 			free(buff);
 			return (NULL);
 		}
+		if (bytes_read == 0)
+		{
+			free(buff);
+			return (stash);
+		}
+		buff[BUFFER_SIZE] = '\0';
 		stash = ft_strjoin(stash, buff);
 	}
 	free(buff);
@@ -91,15 +155,42 @@ char	*save_read(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
+	int			bytes_read;
 	char		*line;
 	static char	*stash;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (0);
-	stash = save_read(fd, stash);
+	bytes_read = 1;
+	stash = save_read(fd, stash, bytes_read);
 	if (!stash)
 		return (NULL);
 	line = get_line(stash);
 	stash = fix_stash(stash);
 	return (line);
+}
+
+int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("42.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("open () error\n");
+		return (0);
+	}
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	if (close(fd) == -1)
+	{
+		printf("close() error\n");
+		return (0);
+	}
+	return (0);
 }

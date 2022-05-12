@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 14:40:56 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/03 12:45:09 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/12 12:25:38 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	main(void)
 		printf("open () error\n");
 		return (0);
 	}
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
 	line = get_next_line(fd);
 	printf("%s", line);
 	if (close(fd) == -1)
