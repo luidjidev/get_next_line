@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:12:02 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/12 13:00:39 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:13:54 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ static char	*get_line(char *stash)
 	return (line);
 }
 
-char	*save_read(int fd, char *stash)
+char	*save_read(int fd, char *stash, int bytes_read)
 {
-	int		bytes_read;
 	char	*buff;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
-	bytes_read = 1;
 	while (!ft_strchr(stash, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, buff, BUFFER_SIZE);
@@ -83,6 +81,12 @@ char	*save_read(int fd, char *stash)
 			free(buff);
 			return (NULL);
 		}
+		if (bytes_read == 0)
+		{
+			free(buff);
+			return (stash);
+		}
+		buff[BUFFER_SIZE] = '\0';
 		stash = ft_strjoin(stash, buff);
 	}
 	free(buff);
@@ -91,12 +95,14 @@ char	*save_read(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
+	int			bytes_read;
 	char		*line;
 	static char	*stash;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (0);
-	stash = save_read(fd, stash);
+	bytes_read = 1;
+	stash = save_read(fd, stash, bytes_read);
 	if (!stash)
 		return (NULL);
 	line = get_line(stash);

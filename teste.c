@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 13:05:08 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/12 13:33:33 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/13 00:11:15 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (*s2)
 		s3[i++] = *s2++;
 	s3[i] = 0;
-	free(s1);
 	return (s3);
 }
 
