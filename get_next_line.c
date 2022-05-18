@@ -6,12 +6,11 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:12:02 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/17 14:59:11 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:29:07 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*fix_stash(char *stash)
 {
@@ -63,7 +62,6 @@ static char	*get_line(char *stash)
 		line[i] = stash[i];
 		i++;
 	}
-	line[i] = '\0';
 	return (line);
 }
 
