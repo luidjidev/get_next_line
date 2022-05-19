@@ -6,7 +6,7 @@
 /*   By: luisfern <luisfern@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 13:12:02 by luisfern          #+#    #+#             */
-/*   Updated: 2022/05/18 15:29:07 by luisfern         ###   ########.fr       */
+/*   Updated: 2022/05/19 13:54:11 by luisfern         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*get_line(char *stash)
 		return (NULL);
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	line = malloc((i + 1) * sizeof(char));
+	line = malloc((i + 2) * sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -62,6 +62,7 @@ static char	*get_line(char *stash)
 		line[i] = stash[i];
 		i++;
 	}
+	line[i] = '\0';
 	return (line);
 }
 
